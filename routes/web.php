@@ -47,6 +47,14 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::patch('/item/{item}', [ItemController::class, 'update'])->name('item.update');
 });
 
+Route::group(['middleware' => ['auth', 'role:admin|user']], function(){
+    Route::get('/item/rent/{item}', [ItemController::class, 'rent'])->name('item.rent');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin|user']], function(){
+    Route::get('/item/return/{item}', [ItemController::class, 'return'])->name('item.return');
+});
+
 
 
 require __DIR__.'/auth.php';

@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function index()
     {
         $items = Item::all();
-        
+     
         return view('home.dashboard', ['items' => $items]);
         // if(Auth::user()->hasRole('user')){
         //     return view('userdashboard');

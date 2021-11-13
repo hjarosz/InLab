@@ -54,6 +54,7 @@ class ItemController extends Controller
     }
 
     public function edit(Item $item){
+
         return view('item.edit', compact('item'));
     }
 
@@ -96,6 +97,18 @@ class ItemController extends Controller
  
          return redirect('dashboard');
      }
+
+     public function rent(Item $item){
+         
+        Auth::user()->items()->attach($item);
+        return redirect('dashboard');
+     }
+
+     public function return(Item $item){
+
+        Auth::user()->items()->detach($item);
+        return redirect('dashboard');
+    }     
 
        
 }

@@ -27,7 +27,7 @@
     
                     <div class="grid grid-flow-row grid-cols-3 grid-rows-3 gap-4">           
                         @foreach ($items as $item)
-                            <a href="item/{{ $item->id }}/edit">
+ 
                             <div class="max-w-sm rounded overflow-hidden shadow-lg">
                                 <img class="w-full" src={{ $item->image }}>
                                 <div class="px-6 py-4">
@@ -36,14 +36,40 @@
                                     {{ $item->description }}
                                 </p>
                                 <p>{{ $item->URL }}</p>
+                                <p>Available: {{ $item->quantity - $item->users->count()}} / {{ $item->quantity }}</p>
                                 </div>
                                 <div class="px-6 pt-4 pb-2">
-                                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-                                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-                                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
                                 </div>
+
+                                @if (Auth::user()->items()->find($item))
+                                    <a href="{{ route('item.return', ['item' => $item]) }}">
+                                        <div class="bg-red-400 text-center text-white">Click to give back</div>   
+                                    </a>                                                                
+                                @else
+                                    @if($item->quantity - $item->users->count() > 0)
+                                        <a href="{{ route('item.rent', ['item' => $item]) }}">
+                                            <div class="bg-green-400 text-center text-white">Click to rent</div> 
+                                        </a>  
+                                    @else
+                                        <div class="bg-gray-400 text-center text-white">Out of stock</div>   
+                                   @endif                                                                        
+                                @endif
+
+
+
+
+                                @if (Auth::user()->hasRole('admin'))    
+                                    <a href="item/{{ $item->id }}/edit">
+                                        <div class="bg-yellow-400 text-center text-white">Click to edit</div>
+                                    </a>
+                                @endif
                             </div>
-                        </a>                
+                                
+                                 
+              
                                 
                         @endforeach
 

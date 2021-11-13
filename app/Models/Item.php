@@ -16,8 +16,8 @@ class Item extends Model
     // protected $timestamps = true;
     
 
-    public function user(){
-        return $this->belongsToMany(User::class);
+    public function users(){
+        return $this->belongsToMany(Item::class, 'user_item', 'item_id', 'user_id');
     }
 
 }
