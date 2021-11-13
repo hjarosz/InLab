@@ -23,12 +23,5 @@ class HomeController extends Controller
     public function manageusers()
     {
         return view('home.manageusers');
-    }
-
-    public function manageinventory()
-    {
-        return view('home.manageinventory');
-    }
-
-   
+    } 
 }

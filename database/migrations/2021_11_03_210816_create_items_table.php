@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('model')->nullable();
-            $table->binary('image')->nullable();
+            $table->string('image')->nullable();
             $table->text('description');
             $table->string('URL')->nullable();
             $table->integer('quantity')->unsigned();

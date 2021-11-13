@@ -32,12 +32,21 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
 });
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
-    Route::get('/dashboard/manageinventory', [HomeController::class, 'manageinventory'])->name('dashboard.manageinventory');
+    Route::get('/item/create', [ItemController::class, 'create'])->name('item.create');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
-    Route::get('/item/create', [ItemController::class, 'create'])->name('item.create');
+    Route::post('/item/store', [ItemController::class, 'store'])->name('item.store');
 });
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('/item/{item}/edit', [ItemController::class, 'edit'])->name('item.edit');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::patch('/item/{item}', [ItemController::class, 'update'])->name('item.update');
+});
+
 
 
 require __DIR__.'/auth.php';

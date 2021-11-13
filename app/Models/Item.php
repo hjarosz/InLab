@@ -9,6 +9,8 @@ class Item extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $table = 'items';
     protected $primaryKey = 'id';
     // protected $timestamps = true;
