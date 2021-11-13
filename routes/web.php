@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ use App\Http\Controllers\HomeController;
 // });
 
 Route::get('/', function(){
-    return view('welcome');
+    return view('home.welcome');
 });
 
 Route::group(['middleware' => ['auth']], function(){
@@ -33,5 +34,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::get('/dashboard/manageinventory', [HomeController::class, 'manageinventory'])->name('dashboard.manageinventory');
 });
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('/item/create', [ItemController::class, 'create'])->name('item.create');
+});
+
 
 require __DIR__.'/auth.php';
