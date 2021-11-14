@@ -12,16 +12,42 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
-
         $allTags = Tag::all();
-     
-        return view('home.dashboard', ['items' => $items, 'allTags' => $allTags]);
+
+        $currentTags = session('currentTags');
+
+        if(is_null($currentTags) or empty($currentTags))
+            $items = Item::all();
+        else
+            // $items = Item::with('tags')->whereIn('id', $currentTags)->get();
+            $items = Item::whereHas('tags', function($q) use ($currentTags){
+                $q->whereIn('id', $currentTags);
+            })->get();
+
+        return view('home.dashboard', ['items' => $items, 'allTags' => $allTags, 'currentTags' => $currentTags]);
         // if(Auth::user()->hasRole('user')){
         //     return view('userdashboard');
         // } elseif(Auth::user()->hasRole('admin')){
         //     return view('admindashboard');
         // }
+    }
+
+    public function filter(Tag $tag){
+
+        $currentTags = session()->get('currentTags');
+
+        if(is_null($currentTags) or empty($currentTags))
+            $currentTags = array($tag->id);
+        else if (!in_array($tag->id,$currentTags))
+            array_push($currentTags, $tag->id);
+        else
+            if(($key = array_search($tag->id, $currentTags)) !== false) {
+                unset($currentTags[$key]);
+            }
+        
+        session()->put('currentTags', $currentTags);    
+
+        return redirect('dashboard');    
     }
 
     public function manageusers()

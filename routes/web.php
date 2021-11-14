@@ -37,6 +37,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::get('/dashboard/managetags', [HomeController::class, 'managetags'])->name('dashboard.managetags');
 });
 
+Route::group(['middleware' => ['auth', 'role:admin|user']], function(){
+    Route::get('/dashboard/tag/{tag}', [HomeController::class, 'filter'])->name('dashboard.tag');
+});
+
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::get('/tag/create', [TagController::class, 'create'])->name('tag.create');
 });

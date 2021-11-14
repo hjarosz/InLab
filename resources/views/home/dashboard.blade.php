@@ -20,11 +20,17 @@
     <br>
     </x-slot>
 
-    <div class="py-2">
+    <div class="py-2 flex justify-center">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="px-6 pt-4 pb-2">
             @foreach ($allTags as $tag)
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ $tag->name }}</span>
+            <a href="{{ route('dashboard.tag', ['tag' => $tag]) }}">
+                @if (!is_null($currentTags) and in_array($tag->id, $currentTags))
+                    <span class="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ $tag->name }}</span>                                   
+                @else
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ $tag->name }}</span>                   
+                @endif
+            </a>         
             @endforeach
         </div>
         </div>           
