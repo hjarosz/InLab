@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +23,8 @@ class HomeController extends Controller
 
     public function manageusers()
     {
-        return view('home.manageusers');
+        $users = User::all();
+
+        return view('home.manageusers', ['users' => $users]);
     } 
 }

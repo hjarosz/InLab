@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,17 @@ Route::group(['middleware' => ['auth', 'role:admin|user']], function(){
     Route::get('/item/return/{item}', [ItemController::class, 'return'])->name('item.return');
 });
 
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('user/delete/{user}',[RegisteredUserController::class, 'delete'])->name('user.delete');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('user/edit/{user}',[RegisteredUserController::class, 'edit'])->name('user.edit');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::patch('user/{user}',[RegisteredUserController::class, 'update'])->name('user.update');
+});
 
 
 require __DIR__.'/auth.php';

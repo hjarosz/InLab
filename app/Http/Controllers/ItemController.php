@@ -77,17 +77,6 @@ class ItemController extends Controller
             $image->save();
         }
 
-        //  $item->update([
-        //      'Name' => $data['Name'],
-        //      'Model' => $data['Model'],
-        //      'Image' => $imagePath,
-        //      'Description' => $data['Description'],
-        //      'URL' => $data['URL'],
-        //      'Quantity' => $data['Quantity'],           
-        //  ]);
-
-        //  dd($data);
-
          $item->update(
              array_merge(
                  $data,
@@ -105,7 +94,6 @@ class ItemController extends Controller
      }
 
      public function return(Item $item){
-
         Auth::user()->items()->detach($item);
         return redirect('dashboard');
     }     

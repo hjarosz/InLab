@@ -56,4 +56,37 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+
+    public function delete(User $user){
+        
+        $user->delete();
+
+        return redirect('dashboard/manageusers');
+    }
+
+    public function edit(User $user){
+
+        return view('auth.edit', compact('user'));
+    }
+
+    public function update(User $user){
+
+        $data = request()->validate([
+             'Username' => 'required|max:255',
+             'Forename' => 'required|max:255',
+             'Surname' => 'required|max:255',
+             'Email' => 'required|max:255',
+         ]);
+
+        $user->update([
+             'username' => $data['Username'],
+             'forename' => $data['Forename'],
+             'surname' => $data['Surname'],
+             'email' => $data['Email'],       
+         ]);
+        
+        return redirect('dashboard/manageusers');
+}
+    
 }
