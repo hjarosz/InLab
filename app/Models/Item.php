@@ -20,4 +20,8 @@ class Item extends Model
         return $this->belongsToMany(Item::class, 'user_item', 'item_id', 'user_id');
     }
 
+    public function tags(){
+        return $this->belongsToMany(Tag::class, 'item_tag', 'item_id', 'tag_id');
+    }  
+
 }

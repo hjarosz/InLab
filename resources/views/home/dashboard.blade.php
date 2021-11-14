@@ -19,13 +19,23 @@
 
     <br>
     </x-slot>
+
+    <div class="py-2">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="px-6 pt-4 pb-2">
+            @foreach ($allTags as $tag)
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ $tag->name }}</span>
+            @endforeach
+        </div>
+        </div>           
+    </div>
     
-    <div class="py-12">
+    <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
     
-                    <div class="grid grid-flow-row grid-cols-3 grid-rows-3 gap-4">           
+                    <div class="grid grid-flow-row grid-cols-3 gap-4">           
                         @foreach ($items as $item)
  
                             <div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -39,9 +49,13 @@
                                 <p>Available: {{ $item->quantity - $item->users->count()}} / {{ $item->quantity }}</p>
                                 </div>
                                 <div class="px-6 pt-4 pb-2">
-                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                                    @if($item->tags->count() > 0)
+                                    @foreach ($item->tags as $tag)
+                                            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ $tag->name }}</span>
+                                    @endforeach
+                                    @else
+                                     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">No tags assigned</span>
+                                     @endif                                    
                                 </div>
 
                                 @if (Auth::user()->items()->find($item))

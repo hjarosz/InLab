@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,30 @@ Route::group(['middleware' => ['auth']], function(){
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::get('/dashboard/manageusers', [HomeController::class, 'manageusers'])->name('dashboard.manageusers');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('/dashboard/managetags', [HomeController::class, 'managetags'])->name('dashboard.managetags');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('/tag/create', [TagController::class, 'create'])->name('tag.create');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::post('/tag/store', [TagController::class, 'store'])->name('tag.store');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('/tag/{tag}/edit', [TagController::class, 'edit'])->name('tag.edit');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::patch('/tag/{tag}', [TagController::class, 'update'])->name('tag.update');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('tag/delete/{tag}',[TagController::class, 'delete'])->name('tag.delete');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -29,7 +30,7 @@ class ItemController extends Controller
        $data = request()->validate([
             'Name' => 'required|max:255',
             'Model' => 'required|max:255',
-            'Image' => 'image|nullable',
+            'Image' => 'image|required',
             'Description' => 'required',
             'URL' => 'URL|nullable',
             'Quantity' => 'required',
@@ -55,10 +56,14 @@ class ItemController extends Controller
 
     public function edit(Item $item){
 
-        return view('item.edit', compact('item'));
+        $tags = Tag::all();
+
+        return view('item.edit', compact('item','tags'));
     }
 
     public function update(Item $item){
+
+
         $data = request()->validate([
              'Name' => 'required|max:255',
              'Model' => 'required|max:255',
@@ -68,7 +73,7 @@ class ItemController extends Controller
              'Quantity' => 'required',
          ]);
 
-         $imagePath = $item->image;
+        $imagePath = $item->image;
  
          if(request('Image')){
             $imagePath = "storage/" . request('Image')->store('uploads', 'public');
@@ -83,8 +88,12 @@ class ItemController extends Controller
                  ['Image' => $imagePath]
              )
          );   
- 
-         return redirect('dashboard');
+
+        $tags = request()->input('tags');
+
+        $item->tags()->sync($tags);
+
+        return redirect('dashboard');
      }
 
      public function rent(Item $item){

@@ -87,6 +87,6 @@ class RegisteredUserController extends Controller
          ]);
         
         return redirect('dashboard/manageusers');
-}
+    }
     
 }
