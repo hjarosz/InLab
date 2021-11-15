@@ -71,10 +71,13 @@
                             </svg>
                         </div>
                         </button>
-                    </x-slot>
+                    </x-slot>      
 
                     <x-slot name="content">
                         <!-- Authentication -->
+                        <x-dropdown-link :href="route('auth.changepassword')" >
+                            Change password
+                        </x-dropdown-link>                                      
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 

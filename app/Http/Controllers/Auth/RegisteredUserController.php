@@ -88,5 +88,27 @@ class RegisteredUserController extends Controller
         
         return redirect('dashboard/manageusers');
     }
+
+    public function changePassword(){
+        return view('auth.change-password');
+    }
+
+    public function updatePassword(){
+
+        $user = Auth::user();
+      
+        $data = request()->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user->update([
+            'password' => Hash::make(request()->password),
+        ]);
+
+        // Auth::login($user);
+
+        return redirect('dashboard');
+    }
+
     
 }

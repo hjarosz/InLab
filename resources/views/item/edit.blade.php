@@ -64,7 +64,7 @@
                             <x-label for="Image" :value="__('Image')" />
             
                             <x-input id="Image" class="block mt-1 w-full" type="file" name="Image" :value="old('Image') ?? $item->image" autofocus />
-                          </div>           
+                          </div>    
                           
                           <br>
                                                   

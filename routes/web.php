@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\TagController;
 
 /*
@@ -23,6 +24,14 @@ use App\Http\Controllers\TagController;
 
 Route::get('/', function(){
     return view('auth/login');
+});
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/password',[RegisteredUserController::class, 'changePassword'])->name('auth.changepassword');
+});
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::patch('/password',[RegisteredUserController::class, 'updatePassword'])->name('auth.updatepassword');
 });
 
 Route::group(['middleware' => ['auth']], function(){

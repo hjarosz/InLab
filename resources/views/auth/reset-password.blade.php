@@ -38,6 +38,8 @@
                                     name="password_confirmation" required />
             </div>
 
+            <br>
+
             <div class="flex items-center justify-end mt-4">
                 <x-button>
                     {{ __('Reset Password') }}

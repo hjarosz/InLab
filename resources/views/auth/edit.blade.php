@@ -39,8 +39,8 @@
                 
                                 <x-input id="Surname" class="block mt-1 w-full" type="text" name="Surname" :value="old('Surname') ?? $user->surname" autofocus />
                             </div>
-                            
-                            <div class="py-2"></div>
+
+                            <br>  
                                                   
                           <x-button class="ml-0">
                             {{ __('Save') }}
