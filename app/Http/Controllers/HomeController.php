@@ -62,6 +62,14 @@ class HomeController extends Controller
         $tags = Tag::all();
 
         return view('home.managetags', ['tags' => $tags]);
-    }     
+    }
+    
+    public function report(){
+
+       $items = Item::all();
+       $users = User::all();
+
+        return view('home.report', compact('items','users'));
+    }
 
 }

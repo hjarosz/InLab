@@ -41,8 +41,22 @@
                             <div>
                               <x-label for="Quantity" :value="__('Quantity')" />
               
-                              <x-input id="Quantity" class="block mt-1 w-full" type="number" name="Quantity" :value="old('Quantity')" autofocus />
-                          </div>       
+                              <x-input id="Quantity" class="block mt-1 w-full" type="number" min="1" name="Quantity" :value="old('Quantity')" autofocus />
+                          </div>  
+                          
+                          <div class="block px-1">
+                            <span class="text-gray-700">Tags</span>
+                            <div class="mt-2">
+                              @foreach ($tags as $tag)
+                                <div>
+                                  <label class="inline-flex items-center">
+                                    <input type="checkbox" class="form-checkbox" name="tags[]" value="{{ $tag->id }}">
+                                    <span class="ml-2">#{{ $tag->name }}</span>
+                                  </label>
+                                </div>                                    
+                              @endforeach                         
+                            </div>
+                          </div>                                                    
                           
                           <div>
                             <x-label for="Image" :value="__('Image')" />

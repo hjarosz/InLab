@@ -22,8 +22,10 @@ class ItemController extends Controller
     }
 
     public function create(){
+        $tags = Tag::all();
+
         if(Auth::user()->hasRole('admin'))
-            return view('item.create');
+            return view('item.create', compact('tags'));
     }
 
     public function store(){
@@ -32,8 +34,8 @@ class ItemController extends Controller
             'Model' => 'required|max:255',
             'Image' => 'image|required',
             'Description' => 'required',
-            'URL' => 'URL|nullable',
-            'Quantity' => 'required',
+            'URL' => 'URL|required',
+            'Quantity' => 'required|min:1',
         ]);
 
         
@@ -42,7 +44,7 @@ class ItemController extends Controller
         $image = Image::make(public_path($imagePath))->resize(300,300);
         $image->save();
 
-        Item::create([
+        $item = Item::create([
             'Name' => $data['Name'],
             'Model' => $data['Model'],
             'Image' => $imagePath,
@@ -51,26 +53,28 @@ class ItemController extends Controller
             'Quantity' => $data['Quantity'],           
         ]);
 
+        $tags = request()->input('tags');
+
+        $item->tags()->sync($tags);        
+
         return redirect('dashboard');
     }
 
     public function edit(Item $item){
 
         $tags = Tag::all();
-
-        return view('item.edit', compact('item','tags'));
+        if(Auth::user()->hasRole('admin'))
+            return view('item.edit', compact('item','tags'));
     }
 
     public function update(Item $item){
-
-
         $data = request()->validate([
              'Name' => 'required|max:255',
              'Model' => 'required|max:255',
              'Image' => 'image|nullable',
              'Description' => 'required',
-             'URL' => 'URL|nullable',
-             'Quantity' => 'required',
+             'URL' => 'URL|required',
+             'Quantity' => 'required|min:1',
          ]);
 
         $imagePath = $item->image;

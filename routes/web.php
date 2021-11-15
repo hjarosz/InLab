@@ -22,7 +22,7 @@ use App\Http\Controllers\TagController;
 // });
 
 Route::get('/', function(){
-    return view('home.welcome');
+    return view('auth/login');
 });
 
 Route::group(['middleware' => ['auth']], function(){
@@ -39,6 +39,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
 
 Route::group(['middleware' => ['auth', 'role:admin|user']], function(){
     Route::get('/dashboard/tag/{tag}', [HomeController::class, 'filter'])->name('dashboard.tag');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('/dashboard/report', [HomeController::class, 'report'])->name('dashboard.report');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){

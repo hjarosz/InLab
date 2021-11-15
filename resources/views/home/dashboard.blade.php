@@ -54,7 +54,8 @@
                                 <p>{{ $item->URL }}</p>
                                 <p>Available: {{ $item->quantity - $item->users->count()}} / {{ $item->quantity }}</p>
                                 </div>
-                                <div class="px-6 pt-4 pb-2">
+
+                                <div class="px-6 pt-4 pb-5 relative block">
                                     @if($item->tags->count() > 0)
                                     @foreach ($item->tags as $tag)
                                             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ $tag->name }}</span>
@@ -63,6 +64,8 @@
                                      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">No tags assigned</span>
                                      @endif                                    
                                 </div>
+
+                                <div name="actions" class="">
 
                                 @if (Auth::user()->items()->find($item))
                                     <a href="{{ route('item.return', ['item' => $item]) }}">
@@ -78,17 +81,16 @@
                                    @endif                                                                        
                                 @endif
 
-
                                 @if (Auth::user()->hasRole('admin'))    
                                     <a href="item/{{ $item->id }}/edit">
                                         <div class="bg-yellow-400 text-center text-white">Click to edit</div>
                                     </a>
                                 @endif
-                            </div>
+
+                                </div> 
                                 
-                                 
-              
-                                
+                        </div>
+                                                              
                         @endforeach
 
                 </div>

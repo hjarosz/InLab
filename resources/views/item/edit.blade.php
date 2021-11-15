@@ -43,7 +43,7 @@
                             <div>
                               <x-label for="Quantity" :value="__('Quantity')" />
               
-                              <x-input id="Quantity" class="block mt-1 w-full" type="number" name="Quantity" :value="old('Quantity') ?? $item->quantity" autofocus />
+                              <x-input id="Quantity" class="block mt-1 w-full" type="number" min="1" name="Quantity" :value="old('Quantity') ?? $item->quantity" autofocus />
                           </div>    
                           
                           <div class="block px-1">
