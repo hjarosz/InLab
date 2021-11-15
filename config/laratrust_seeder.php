@@ -12,20 +12,20 @@ return [
     'truncate_tables' => true,
 
     'roles_structure' => [
-        'admin' => [
-            'users' => 'c,r,u,d',
-            'payments' => 'c,r,u,d',
-            'profile' => 'r,u'
-        ],
-        'user' => [
-            'profile' => 'r,u',
-        ],
+        'admin' => [],
+        'user' => []
+        // 'admin' => [
+        //     'all' => 'c,r,u,d'
+        // ],
+        // 'user' => [
+        //     'all' => 'c,r'
+        // ],
     ],
 
-    'permissions_map' => [
-        'c' => 'create',
-        'r' => 'read',
-        'u' => 'update',
-        'd' => 'delete'
-    ]
+    // 'permissions_map' => [
+    //     'c' => 'create',
+    //     'r' => 'read',
+    //     'u' => 'update',
+    //     'd' => 'delete'
+    // ]
 ];
