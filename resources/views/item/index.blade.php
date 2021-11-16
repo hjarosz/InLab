@@ -24,14 +24,7 @@
                         {{ $item->description }} <br>
                         {{ $item->URL }}
                     </div>                             
-                 @endforeach                
-
-                {{-- @if (Auth::user()->hasRole('admin'))
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        <a href="#">Add new item</a>
-                    </div>      
-                @endif --}}
-        
+                 @endforeach                       
 
             </div>
         </div>

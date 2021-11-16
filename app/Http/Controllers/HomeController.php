@@ -19,17 +19,11 @@ class HomeController extends Controller
         if(is_null($currentTags) or empty($currentTags))
             $items = Item::all();
         else
-            // $items = Item::with('tags')->whereIn('id', $currentTags)->get();
             $items = Item::whereHas('tags', function($q) use ($currentTags){
                 $q->whereIn('id', $currentTags);
             })->get();
 
         return view('home.dashboard', ['items' => $items, 'allTags' => $allTags, 'currentTags' => $currentTags]);
-        // if(Auth::user()->hasRole('user')){
-        //     return view('userdashboard');
-        // } elseif(Auth::user()->hasRole('admin')){
-        //     return view('admindashboard');
-        // }
     }
 
     public function filter(Tag $tag){

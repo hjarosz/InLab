@@ -15,7 +15,6 @@
 
                             @method('PATCH')
                 
-                            <!-- Name -->
                             <div>
                                 <x-label for="Name" :value="__('Name')" />
                 

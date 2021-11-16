@@ -13,7 +13,6 @@
                           <form method="POST" action="{{ route('tag.store') }}"> 
                             @csrf
                 
-                            <!-- Name -->
                             <div>
                                 <x-label for="Name" :value="__('Name')" />
                 
