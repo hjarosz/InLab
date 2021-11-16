@@ -14,13 +14,11 @@ class CreateUserItemsTable extends Migration
     public function up()
     {
         Schema::create('user_item', function (Blueprint $table) {
-            $table->bigInteger('user_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('item_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
 
-            $table->index('user_id');
-            $table->index('item_id');
         });
     }
 
