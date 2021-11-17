@@ -18,6 +18,9 @@ class CreateItemTagsTable extends Migration
             $table->integer('tag_id')->unsigned();
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+
+            $table->index('item_id');
+            $table->index('tag_id');
         });
     }
 
