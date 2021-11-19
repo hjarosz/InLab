@@ -46,7 +46,7 @@ class HomeController extends Controller
 
     public function manageusers()
     {
-        $users = User::all();
+        $users = User::all()->except(Auth::user()->id);
 
         return view('home.manageusers', ['users' => $users]);
     } 

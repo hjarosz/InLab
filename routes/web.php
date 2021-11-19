@@ -79,6 +79,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
 });
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('item/delete/{item}',[ItemController::class, 'delete'])->name('item.delete');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
     Route::post('/item/store', [ItemController::class, 'store'])->name('item.store');
 });
 

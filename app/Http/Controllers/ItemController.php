@@ -109,7 +109,15 @@ class ItemController extends Controller
      public function return(Item $item){
         Auth::user()->items()->detach($item);
         return redirect('dashboard');
-    }     
+    } 
+    
+    public function delete(Item $item){
+        
+        $item->delete();
+
+        return redirect('dashboard');
+    }
+
 
        
 }
